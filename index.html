@@ -121,7 +121,7 @@
   .finding li + li { margin-top: 6px; }
   .finding strong { color: var(--ink); }
   .finding.wide { grid-column: 1 / -1; }
-  .byline { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); margin-bottom: 20px; }
+  .byline { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 12px; line-height: 1.45; background: var(--card); border: 1px solid var(--line); margin-bottom: 20px; }
 
   .models { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
   .model { padding: 18px; }
@@ -235,10 +235,11 @@
     <div class="wrap">
       <p class="eyebrow">Norfolk County Mayoral Election 2026</p>
       <h1>Know what you're <em>voting for.</em></h1>
-      <p class="lede">A plain-language, side-by-side guide to all seven candidates for mayor of Norfolk County: who they are, what they've said on each issue, and where the public record is thin. Every claim links back to its source.</p>
+      <p class="lede">A plain-language, side-by-side guide to all seven candidates for mayor of Norfolk County: who they are, what they've said on each issue, and where the public record is thin. Researched by ChatGPT, Gemini and DeepSeek, then fact-checked and consolidated by Claude. Every claim links back to its source.</p>
       <div class="hero-meta">
         <div><strong>Oct 26, 2026</strong>Election day</div>
         <div><strong>7 candidates</strong>Same questions, same format</div>
+        <div><strong>4 AI engines</strong>Research &amp; fact-checking</div>
         <div><strong>9 issues</strong>Compared side by side</div>
         <div><strong>Sept 25, 2026</strong>Research current to</div>
       </div>
@@ -302,9 +303,9 @@
       <div class="section-head">
         <p class="kicker">AI analysis</p>
         <h2>What the analysis found.</h2>
-        <p>Each AI model is given the same sourced material and the same questions. Its job is to describe the field, not to rank it. No model's analysis includes a recommendation.</p>
+        <p>These findings describe the field; they do not rank it, and none of them is a recommendation.</p>
       </div>
-      <span class="byline"><span class="mk mk-plan" aria-hidden="true" style="width:10px;height:10px"></span>Analysis by Claude (Anthropic) · Sept 25, 2026</span>
+      <p class="byline"><span class="mk mk-plan" aria-hidden="true" style="width:10px;height:10px"></span>Analysis performed by ChatGPT, Gemini and DeepSeek, fact-checked and consolidated by Claude · Sept 25, 2026</p>
       <div class="analysis">
         <div class="card finding">
           <div class="num">01</div>
@@ -340,12 +341,6 @@
         </div>
       </div>
 
-      <div class="models" aria-label="AI analysis status">
-        <div class="card model"><h3>Claude</h3><p>Anthropic</p><span class="status done">Complete · Sept 25</span></div>
-        <div class="card model"><h3>ChatGPT</h3><p>OpenAI</p><span class="status wait">Coming soon</span></div>
-        <div class="card model"><h3>Gemini</h3><p>Google</p><span class="status wait">Coming soon</span></div>
-        <div class="card model"><h3>DeepSeek</h3><p>DeepSeek</p><span class="status wait">Coming soon</span></div>
-      </div>
     </div>
   </section>
 
@@ -507,6 +502,8 @@
       <div class="card method">
         <h3>How this was put together</h3>
         <ul>
+          <li>Candidate research was performed by three AI engines: ChatGPT, Gemini and DeepSeek.</li>
+          <li>Claude checked their findings against original sources, corrected errors, removed unsourced opinion and consolidated the results into this guide.</li>
           <li>Candidate list from Norfolk County's official certified candidates notice.</li>
           <li>Positions taken from candidates' campaign websites and local news coverage published up to September 25, 2026.</li>
           <li>Candidate claims about their own records (for example, past tax results) are reported as claims, in their own words.</li>
