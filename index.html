@@ -3,156 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Norfolk Mayoral Race 2026 — AI Platform Comparison</title>
-<meta name="description" content="A nonpartisan, side-by-side look at the 2026 Norfolk County mayoral candidates, with each campaign platform analyzed by four AI models: Claude, ChatGPT, Gemini and DeepSeek.">
+<title>Norfolk Votes, Clearly — 2026 Mayoral Candidate Comparison</title>
+<meta name="description" content="A nonpartisan, side-by-side comparison of the seven candidates for Norfolk County mayor in the October 26, 2026 election: bios, documented positions by issue, and AI-assisted analysis with sources.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #f6f3ec;
-    --card: #fffdf8;
-    --ink: #14213d;
-    --ink-soft: #4a5570;
-    --line: #e2dccf;
-    --accent: #c8553d;
-    --accent-soft: #f3ddd5;
-    --navy: #1d3557;
-    --gold: #d9a441;
+    --paper: #f6f3ec; --card: #fffdf8; --ink: #14213d; --ink-soft: #4a5570; --line: #e2dccf;
+    --accent: #b8472f; --accent-soft: #f3ddd5; --navy: #1d3557; --gold: #d9a441; --gold-soft: #f6ead0;
     --shadow: 0 1px 2px rgba(20,33,61,.06), 0 8px 24px rgba(20,33,61,.06);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper: #0f1626;
-      --card: #172036;
-      --ink: #eef1f7;
-      --ink-soft: #a7b0c4;
-      --line: #27324c;
-      --accent: #e57a60;
-      --accent-soft: #3a2621;
-      --navy: #8fb3e0;
-      --gold: #e6b75a;
+      --paper: #0f1626; --card: #172036; --ink: #eef1f7; --ink-soft: #a7b0c4; --line: #2b3754;
+      --accent: #e57a60; --accent-soft: #3a2621; --navy: #8fb3e0; --gold: #e6b75a; --gold-soft: #3a3120;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
     }
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: "Inter", system-ui, -apple-system, sans-serif;
-    font-size: 17px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  body { background: var(--paper); color: var(--ink); font-family: "Inter", system-ui, -apple-system, sans-serif; font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
   h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; letter-spacing: -0.01em; }
   a { color: var(--accent); }
+  .muted { color: var(--ink-soft); }
+  .skip { position: absolute; left: -999px; } .skip:focus { left: 12px; top: 12px; background: var(--card); padding: 8px 12px; z-index: 10; }
 
   /* Top bar */
-  .topbar { border-bottom: 1px solid var(--line); }
-  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); }
+  .topbar { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(8px); z-index: 5; }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); white-space: nowrap; }
   .brand-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--navy); display: grid; place-items: center; }
   .brand-mark svg { width: 18px; height: 18px; }
-  .pill { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+  nav.jump { display: flex; gap: 18px; font-size: 14px; }
+  nav.jump a { color: var(--ink-soft); text-decoration: none; font-weight: 500; }
+  nav.jump a:hover { color: var(--ink); }
 
   /* Hero */
-  .hero { padding: 88px 0 72px; position: relative; overflow: hidden; }
-  .hero::before {
-    content: ""; position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(90deg, transparent 0 79px, var(--line) 79px 80px);
-    opacity: .35; pointer-events: none;
-    mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
-  }
+  .hero { padding: 80px 0 64px; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 79px, var(--line) 79px 80px); opacity: .35; pointer-events: none; mask-image: linear-gradient(to bottom, #000 0%, transparent 85%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%); }
   .hero .wrap { position: relative; }
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
   .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--accent); }
   .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 700; max-width: 14ch; }
   .hero h1 em { font-style: italic; font-weight: 400; color: var(--navy); }
-  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--ink-soft); max-width: 60ch; margin-top: 28px; }
-  .hero-meta { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 720px; }
+  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--ink-soft); max-width: 62ch; margin-top: 28px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 760px; }
   .hero-meta div { font-size: 14px; color: var(--ink-soft); }
   .hero-meta strong { display: block; font-family: "Fraunces", Georgia, serif; font-size: 22px; color: var(--ink); font-weight: 600; }
 
-  section { padding: 72px 0; }
-  .section-head { max-width: 640px; margin-bottom: 40px; }
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  .section-head { max-width: 680px; margin-bottom: 36px; }
   .section-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; }
   .section-head p { color: var(--ink-soft); margin-top: 12px; }
   .kicker { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
 
-  /* About */
-  .about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
-  .about p + p { margin-top: 18px; }
-  .about .prose { color: var(--ink); }
-  .callout { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px; box-shadow: var(--shadow); }
-  .callout h3 { font-size: 20px; margin-bottom: 14px; }
-  .callout ul { list-style: none; }
-  .callout li { padding: 10px 0 10px 30px; position: relative; border-top: 1px solid var(--line); font-size: 15px; }
-  .callout li:first-child { border-top: 0; }
-  .callout li::before { content: ""; position: absolute; left: 4px; top: 17px; width: 12px; height: 7px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
+  /* Markers */
+  .mk { display: inline-block; width: 18px; height: 18px; border-radius: 50%; vertical-align: middle; flex: none; }
+  .mk-plan { background: var(--navy); }
+  .mk-said { border: 2px solid var(--navy); background: linear-gradient(90deg, var(--navy) 50%, transparent 50%); }
+  .mk-pending { border: 2px dashed var(--gold); }
+  .mk-none { width: 10px; height: 2px; border-radius: 1px; background: var(--line); margin: 0 4px; }
+  @media (prefers-color-scheme: dark) { .mk-none { background: #4a5570; } }
 
-  /* Steps */
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
-  .step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px; box-shadow: var(--shadow); counter-increment: step; }
-  .step::before { content: "0" counter(step); font-family: "Fraunces", Georgia, serif; font-size: 34px; font-weight: 600; color: var(--gold); display: block; margin-bottom: 14px; }
-  .step h3 { font-size: 19px; margin-bottom: 8px; }
-  .step p { font-size: 15px; color: var(--ink-soft); }
+  /* Overview matrix */
+  .matrix-card { padding: 8px 0 0; overflow: hidden; }
+  .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .matrix th, .matrix td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: center; font-size: 14px; }
+  .matrix thead th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; }
+  .matrix thead th a { color: var(--ink); text-decoration: none; }
+  .matrix thead th a:hover { color: var(--accent); }
+  .matrix tbody th { text-align: left; padding-left: 20px; width: 26%; }
+  .matrix tbody tr:hover { background: color-mix(in srgb, var(--gold-soft) 55%, transparent); }
+  .rowbtn { background: none; border: 0; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; text-align: left; padding: 0; }
+  .rowbtn:hover { color: var(--accent); text-decoration: underline; }
+  .matrix tfoot th { text-align: left; padding-left: 20px; font-weight: 500; color: var(--ink-soft); font-size: 13px; }
+  .matrix tfoot td { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 18px; border-bottom: 0; }
+  .legend { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 28px; padding: 20px; font-size: 14px; border-top: 1px solid var(--line); }
+  .legend li { display: flex; gap: 12px; align-items: flex-start; }
+  .legend .mk { margin-top: 2px; }
+  .caveat { margin-top: 18px; font-size: 14px; color: var(--ink-soft); max-width: 72ch; }
 
-  /* Preview table */
-  .preview { background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; position: relative; }
-  .table-scroll { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; min-width: 820px; }
-  th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
-  thead th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; background: var(--paper); }
-  tbody th { font-weight: 600; color: var(--ink); width: 22%; }
-  .bar { height: 10px; border-radius: 6px; background: var(--line); position: relative; overflow: hidden; }
-  .bar span { position: absolute; inset: 0 auto 0 0; border-radius: 6px; background: linear-gradient(90deg, var(--navy), var(--accent)); opacity: .35; }
-  .shimmer { position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 2.4s infinite linear; pointer-events: none; }
-  @media (prefers-color-scheme: dark) { .shimmer { background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%); background-size: 200% 100%; } }
-  @keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
-  @media (prefers-reduced-motion: reduce) { .shimmer { animation: none; } }
-  .overlay { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--card) 70%, transparent) 55%); }
-  .overlay-badge { background: var(--ink); color: var(--paper); padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px; margin-top: 80px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 1.6s infinite ease-in-out; }
-  @keyframes pulse { 50% { opacity: .3; } }
-  .models { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-  .model { font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); }
+  /* Issue explorer */
+  .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
+  .tab { flex: none; font: inherit; font-size: 14px; font-weight: 500; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .tab[aria-selected="true"] { background: var(--navy); border-color: var(--navy); color: var(--paper); }
+  .tab:focus-visible, .rowbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .panel-title { font-size: 24px; margin: 4px 0 16px; }
+  .js .panel[hidden] { display: none; }
+  .no-js .panel + .panel { margin-top: 40px; }
+  .poslist { list-style: none; display: grid; gap: 12px; }
+  .pos { padding: 16px 20px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+  .pos-none { background: transparent; border-style: dashed; }
+  .pos-none p { color: var(--ink-soft); font-size: 14px; }
+  .pos-who { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 4px; }
+  .pos-who a { font-weight: 600; color: var(--ink); text-decoration: none; }
+  .pos-who a:hover { color: var(--accent); }
+  .pos p { font-size: 15px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .b-plan { background: var(--navy); color: var(--paper); }
+  .b-said { background: color-mix(in srgb, var(--navy) 14%, transparent); color: var(--navy); }
+  .b-pending { background: var(--gold-soft); color: #7a5a14; border: 1px dashed var(--gold); }
+  @media (prefers-color-scheme: dark) { .b-pending { color: var(--gold); } }
+  .b-none { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
 
-  /* Profile preview */
-  .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .profile { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
-  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--line); margin-bottom: 18px; position: relative; overflow: hidden; }
-  .line { height: 10px; border-radius: 6px; background: var(--line); margin-top: 10px; }
-  .line.title { height: 16px; width: 60%; margin-top: 0; }
-  .line.w90 { width: 90%; } .line.w75 { width: 75%; } .line.w50 { width: 50%; }
-  .tags { display: flex; gap: 8px; margin-top: 18px; }
-  .tag { height: 24px; width: 64px; border-radius: 999px; background: var(--accent-soft); }
+  /* Analysis */
+  .analysis { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .finding { padding: 26px; }
+  .finding .num { font-family: "Fraunces", Georgia, serif; font-size: 30px; font-weight: 600; color: var(--gold); line-height: 1; }
+  .finding h3 { font-size: 21px; margin: 10px 0 8px; }
+  .finding p, .finding li { font-size: 15px; color: var(--ink-soft); }
+  .finding ul { margin: 10px 0 0 18px; }
+  .finding li + li { margin-top: 6px; }
+  .finding strong { color: var(--ink); }
+  .finding.wide { grid-column: 1 / -1; }
+  .byline { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); margin-bottom: 20px; }
 
-  /* Principles */
-  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .principle { border-top: 3px solid var(--navy); padding-top: 20px; }
-  .principle h3 { font-size: 21px; margin-bottom: 8px; }
-  .principle p { color: var(--ink-soft); font-size: 15px; }
+  .models { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
+  .model { padding: 18px; }
+  .model h3 { font-size: 18px; }
+  .model p { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+  .status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; margin-top: 10px; }
+  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+  .status.done::before { background: #2f8f5b; }
+  .status.done { color: #2f8f5b; }
+  @media (prefers-color-scheme: dark) { .status.done { color: #6fcf97; } .status.done::before { background: #6fcf97; } }
+  .status.wait { color: var(--ink-soft); }
 
-  .notice { background: var(--navy); color: #fff; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
-  @media (prefers-color-scheme: dark) { .notice { background: #22345a; } }
-  .notice h2 { font-size: 28px; font-weight: 600; }
-  .notice p { opacity: .85; margin-top: 8px; max-width: 58ch; }
-  .notice a.btn { display: inline-block; background: var(--gold); color: #14213d; text-decoration: none; font-weight: 600; padding: 14px 24px; border-radius: 12px; white-space: nowrap; }
+  /* Strong mayor + questions */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .box { padding: 28px; }
+  .box h3 { font-size: 22px; margin-bottom: 12px; }
+  .box p, .box li { font-size: 15px; }
+  .box ul, .box ol { margin: 12px 0 0 20px; }
+  .box li + li { margin-top: 8px; }
+  .box .small { font-size: 13px; color: var(--ink-soft); margin-top: 14px; }
 
-  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 40px; font-size: 14px; color: var(--ink-soft); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  /* Candidates */
+  .cands { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cand { background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 26px; scroll-margin-top: 80px; }
+  .cand-head { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 19px; color: var(--navy); background: var(--accent-soft); flex: none; }
+  .cand h3 { font-size: 24px; }
+  .role { font-size: 14px; color: var(--ink-soft); }
+  .bio { font-size: 15px; }
+  .cand h4 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin: 20px 0 10px; }
+  .plist { list-style: none; display: grid; gap: 10px; }
+  .plist li { font-size: 14px; }
+  .plist .badge { margin-right: 8px; vertical-align: 1px; }
+  .plist .empty { color: var(--ink-soft); padding: 14px; border: 1px dashed var(--line); border-radius: 12px; }
+  .note { font-size: 13px; color: var(--ink-soft); margin-top: 12px; padding-left: 12px; border-left: 3px dashed var(--gold); }
+  .event { margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: var(--paper); }
+  .event-label { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .event p { font-size: 14px; margin-top: 4px; }
+  .att { font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+  .att-yes { background: color-mix(in srgb, var(--navy) 14%, transparent); color: var(--navy); }
+  .att-no { background: var(--line); color: var(--ink-soft); }
+  details { margin-top: 16px; font-size: 14px; }
+  summary { cursor: pointer; font-weight: 600; color: var(--ink-soft); }
+  .srclist { margin: 8px 0 0 18px; }
+  .srclist li { margin-top: 4px; }
 
-  .profile { display: flex; flex-direction: column; }
-  .profile h3 { font-size: 21px; margin-bottom: 4px; }
-  .avatar { display: grid; place-items: center; font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 20px; color: var(--navy); background: var(--accent-soft); }
-  .role { font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; min-height: 44px; }
-  .soon { margin-top: 16px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-  .fineprint { margin-top: 20px; font-size: 13px; color: var(--ink-soft); }
+  /* Timeline */
   .timeline { list-style: none; border-left: 2px solid var(--line); margin-left: 8px; }
   .timeline li { position: relative; padding: 0 0 28px 28px; display: grid; grid-template-columns: 130px 1fr; gap: 16px; }
   .timeline li::before { content: ""; position: absolute; left: -8px; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: var(--card); border: 2px solid var(--navy); }
@@ -161,118 +177,206 @@
   .timeline time { font-weight: 600; font-size: 15px; }
   .timeline h3 { font-size: 19px; margin-bottom: 4px; }
   .timeline p { font-size: 15px; color: var(--ink-soft); }
-  @media (max-width: 600px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
 
-  @media (max-width: 860px) {
-    .about { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: repeat(2, 1fr); }
-    .profile-grid { grid-template-columns: 1fr 1fr; }
+  /* Principles, sources */
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .principle { border-top: 3px solid var(--navy); padding-top: 20px; }
+  .principle h3 { font-size: 21px; margin-bottom: 8px; }
+  .principle p { color: var(--ink-soft); font-size: 15px; }
+  .method { margin-top: 40px; padding: 28px; }
+  .method h3 { font-size: 21px; margin-bottom: 10px; }
+  .method p, .method li { font-size: 15px; color: var(--ink-soft); }
+  .method ul { margin: 10px 0 0 20px; }
+  .allsrc { columns: 2; column-gap: 32px; margin: 12px 0 0 20px; font-size: 14px; }
+  .allsrc li { break-inside: avoid; margin-bottom: 6px; }
+
+  .notice { background: var(--navy); color: #fff; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+  @media (prefers-color-scheme: dark) { .notice { background: #22345a; } }
+  .notice h2 { font-size: 28px; font-weight: 600; }
+  .notice p { opacity: .88; margin-top: 8px; max-width: 58ch; }
+  .notice a.btn { display: inline-block; background: var(--gold); color: #14213d; text-decoration: none; font-weight: 600; padding: 14px 24px; border-radius: 12px; white-space: nowrap; }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 24px; font-size: 14px; color: var(--ink-soft); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+
+  @media (max-width: 900px) {
+    nav.jump { display: none; }
+    .analysis, .two, .cands { grid-template-columns: 1fr; }
+    .models { grid-template-columns: repeat(2, 1fr); }
     .principles { grid-template-columns: 1fr; gap: 24px; }
     .notice { grid-template-columns: 1fr; padding: 28px; }
+    .legend { grid-template-columns: 1fr; }
+    .allsrc { columns: 1; }
   }
-  @media (max-width: 520px) {
-    .steps { grid-template-columns: 1fr; }
-    .profile-grid { grid-template-columns: 1fr; }
-    .hero { padding: 56px 0 48px; }
-    section { padding: 52px 0; }
+  @media (max-width: 560px) {
+    .hero { padding: 52px 0 44px; }
+    section { padding: 48px 0; }
+    .timeline li { grid-template-columns: 1fr; gap: 4px; }
+    .models { grid-template-columns: 1fr; }
+    .cand, .box, .finding { padding: 20px; }
   }
 </style>
 </head>
-<body>
-
+<body class="no-js">
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="#">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>
-      </span>
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span>
       Norfolk Votes, Clearly
     </a>
-    <span class="pill">Coming soon</span>
+    <nav class="jump" aria-label="Sections">
+      <a href="#compare">Compare</a><a href="#issues">By issue</a><a href="#analysis">Analysis</a><a href="#candidates">Candidates</a><a href="#dates">Dates</a>
+    </nav>
   </div>
 </header>
 
-<main>
-  <div class="hero">
+<main id="main">
+  <div class="hero" id="top">
     <div class="wrap">
       <p class="eyebrow">Norfolk County Mayoral Election 2026</p>
       <h1>Know what you're <em>voting for.</em></h1>
-      <p class="lede">A plain-language, side-by-side guide to every mayoral candidate's platform, analyzed independently by four leading AI models so you can compare where the candidates stand in minutes, not hours.</p>
+      <p class="lede">A plain-language, side-by-side guide to all seven candidates for mayor of Norfolk County: who they are, what they've said on each issue, and where the public record is thin. Every claim links back to its source.</p>
       <div class="hero-meta">
         <div><strong>Oct 26, 2026</strong>Election day</div>
-        <div><strong>4 AI models</strong>Independent analyses</div>
         <div><strong>7 candidates</strong>Same questions, same format</div>
+        <div><strong>9 issues</strong>Compared side by side</div>
+        <div><strong>Sept 25, 2026</strong>Research current to</div>
       </div>
     </div>
   </div>
 
-  <section id="about">
-    <div class="wrap about">
-      <div class="prose">
-        <p class="kicker">About this project</p>
-        <h2 style="font-size:clamp(28px,4vw,40px);font-weight:600;margin-bottom:20px;">Campaign promises, made easy to compare.</h2>
-        <p>Every election, voters are asked to make an important decision with scattered information: a flyer here, a debate clip there, a website that may or may not answer the questions you care about. This project brings it all into one place.</p>
-        <p>Each mayoral candidate's publicly available campaign material will be gathered and given to four AI models: <strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong> and <strong>DeepSeek</strong>. Each model is asked the same questions about every candidate, and the results are laid out in a single comparison chart. Where the models agree, you can read with confidence. Where they differ, you'll see that too.</p>
-        <p>Alongside the analysis, each candidate will have a short, factual biography so you know who they are before you read what they propose.</p>
-      </div>
-      <aside class="callout">
-        <h3>What you'll find here</h3>
-        <ul>
-          <li>A one-paragraph bio for every mayoral candidate</li>
-          <li>Key platform positions, summarized in plain language</li>
-          <li>A comparison chart across all candidates and all four AI models</li>
-          <li>Links back to each candidate's own campaign sources</li>
-        </ul>
-      </aside>
-    </div>
-  </section>
-
-  <section id="how">
+  <section id="compare">
     <div class="wrap">
       <div class="section-head">
-        <p class="kicker">How it works</p>
-        <h2>One method, applied to everyone.</h2>
-        <p>The same process is used for every candidate, so no one gets a different set of questions or a friendlier summary.</p>
+        <p class="kicker">At a glance</p>
+        <h2>Who has said what, on which issues.</h2>
+        <p>This chart shows how much each candidate has put on the public record for each issue. It is not a score, and it does not say whether a position is good or bad. Select an issue to read what each candidate actually said.</p>
       </div>
-      <div class="steps">
-        <div class="step"><h3>Gather</h3><p>Collect each candidate's public platform, website, and published statements.</p></div>
-        <div class="step"><h3>Ask</h3><p>Give every AI model the same material and the same set of questions.</p></div>
-        <div class="step"><h3>Compare</h3><p>Line up the answers side by side, by candidate and by issue.</p></div>
-        <div class="step"><h3>Publish</h3><p>Share the results with sources, so you can check anything yourself.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="preview">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="kicker">Sneak peek</p>
-        <h2>The comparison chart.</h2>
-        <p>Results will appear here once the research is complete. On a phone, scroll sideways to see every candidate.</p>
-      </div>
-      <div class="preview">
-        <div class="table-scroll">
-          <table aria-label="Placeholder comparison chart">
-            <thead>
-              <tr><th>Issue</th><th>Brunton</th><th>Finch</th><th>Gilpin</th><th>Haydt</th><th>Hewitt</th><th>Milner</th><th>Veri</th></tr>
-            </thead>
+      <div class="card matrix-card">
+        <div class="scroll-x">
+          <table class="matrix">
+            <caption class="skip">Documented positions by issue and candidate</caption>
+            <thead><tr><th scope="col" style="text-align:left;padding-left:20px">Issue</th><th scope="col"><a href="#brunton">Brunton</a></th><th scope="col"><a href="#finch">Finch</a></th><th scope="col"><a href="#gilpin">Gilpin</a></th><th scope="col"><a href="#haydt">Haydt</a></th><th scope="col"><a href="#hewitt">Hewitt</a></th><th scope="col"><a href="#milner">Milner</a></th><th scope="col"><a href="#veri">Veri</a></th></tr></thead>
             <tbody>
-              <tr><th>Taxes &amp; budget</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
-              <tr><th>Housing &amp; growth</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
-              <tr><th>Roads &amp; infrastructure</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
-              <tr><th>Agriculture &amp; rural</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
-              <tr><th>Transparency &amp; engagement</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="tax">Taxes &amp; spending</button></th><td><span class="mk mk-pending" role="img" aria-label="Doug Brunton: Reported, source pending" title="Doug Brunton: Reported, source pending"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Ken Hewitt: Written platform" title="Ken Hewitt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Keith Milner: Written platform" title="Keith Milner: Written platform"></span></td><td><span class="mk mk-said" role="img" aria-label="Adam Veri: Public statement" title="Adam Veri: Public statement"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="water">Water &amp; wastewater</button></th><td><span class="mk mk-pending" role="img" aria-label="Doug Brunton: Reported, source pending" title="Doug Brunton: Reported, source pending"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Hewitt: Nothing found yet" title="Ken Hewitt: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Keith Milner: Written platform" title="Keith Milner: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Adam Veri: Nothing found yet" title="Adam Veri: Nothing found yet"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="roads">Roads &amp; infrastructure</button></th><td><span class="mk mk-none" role="img" aria-label="Doug Brunton: Nothing found yet" title="Doug Brunton: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Ken Hewitt: Written platform" title="Ken Hewitt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Keith Milner: Written platform" title="Keith Milner: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Adam Veri: Nothing found yet" title="Adam Veri: Nothing found yet"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="growth">Growth &amp; development</button></th><td><span class="mk mk-none" role="img" aria-label="Doug Brunton: Nothing found yet" title="Doug Brunton: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Hewitt: Nothing found yet" title="Ken Hewitt: Nothing found yet"></span></td><td><span class="mk mk-said" role="img" aria-label="Keith Milner: Public statement" title="Keith Milner: Public statement"></span></td><td><span class="mk mk-none" role="img" aria-label="Adam Veri: Nothing found yet" title="Adam Veri: Nothing found yet"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="biz">Economy &amp; red tape</button></th><td><span class="mk mk-none" role="img" aria-label="Doug Brunton: Nothing found yet" title="Doug Brunton: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Ken Hewitt: Written platform" title="Ken Hewitt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Keith Milner: Written platform" title="Keith Milner: Written platform"></span></td><td><span class="mk mk-pending" role="img" aria-label="Adam Veri: Reported, source pending" title="Adam Veri: Reported, source pending"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="ag">Agriculture &amp; rural</button></th><td><span class="mk mk-pending" role="img" aria-label="Doug Brunton: Reported, source pending" title="Doug Brunton: Reported, source pending"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Hewitt: Nothing found yet" title="Ken Hewitt: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Keith Milner: Written platform" title="Keith Milner: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Adam Veri: Nothing found yet" title="Adam Veri: Nothing found yet"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="open">Transparency &amp; service</button></th><td><span class="mk mk-none" role="img" aria-label="Doug Brunton: Nothing found yet" title="Doug Brunton: Nothing found yet"></span></td><td><span class="mk mk-said" role="img" aria-label="David Finch: Public statement" title="David Finch: Public statement"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Noel Haydt: Written platform" title="Noel Haydt: Written platform"></span></td><td><span class="mk mk-plan" role="img" aria-label="Ken Hewitt: Written platform" title="Ken Hewitt: Written platform"></span></td><td><span class="mk mk-said" role="img" aria-label="Keith Milner: Public statement" title="Keith Milner: Public statement"></span></td><td><span class="mk mk-said" role="img" aria-label="Adam Veri: Public statement" title="Adam Veri: Public statement"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="safety">Public safety &amp; health</button></th><td><span class="mk mk-none" role="img" aria-label="Doug Brunton: Nothing found yet" title="Doug Brunton: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Noel Haydt: Nothing found yet" title="Noel Haydt: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Hewitt: Nothing found yet" title="Ken Hewitt: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Keith Milner: Written platform" title="Keith Milner: Written platform"></span></td><td><span class="mk mk-none" role="img" aria-label="Adam Veri: Nothing found yet" title="Adam Veri: Nothing found yet"></span></td></tr>
+<tr><th scope="row"><button type="button" class="rowbtn" data-issue="gov">Other governments</button></th><td><span class="mk mk-pending" role="img" aria-label="Doug Brunton: Reported, source pending" title="Doug Brunton: Reported, source pending"></span></td><td><span class="mk mk-none" role="img" aria-label="David Finch: Nothing found yet" title="David Finch: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Ken Gilpin: Nothing found yet" title="Ken Gilpin: Nothing found yet"></span></td><td><span class="mk mk-none" role="img" aria-label="Noel Haydt: Nothing found yet" title="Noel Haydt: Nothing found yet"></span></td><td><span class="mk mk-plan" role="img" aria-label="Ken Hewitt: Written platform" title="Ken Hewitt: Written platform"></span></td><td><span class="mk mk-said" role="img" aria-label="Keith Milner: Public statement" title="Keith Milner: Public statement"></span></td><td><span class="mk mk-none" role="img" aria-label="Adam Veri: Nothing found yet" title="Adam Veri: Nothing found yet"></span></td></tr>
             </tbody>
           </table>
         </div>
-        <div class="shimmer"></div>
-        <div class="overlay"><span class="overlay-badge"><span class="dot"></span>Analysis in progress</span></div>
+        <ul class="legend"><li><span class="mk mk-plan" aria-hidden="true"></span><span><strong>Written platform</strong> <span class="muted">— On the candidate's own campaign website</span></span></li><li><span class="mk mk-said" aria-hidden="true"></span><span><strong>Public statement</strong> <span class="muted">— Reported by local news or said at a public event</span></span></li><li><span class="mk mk-pending" aria-hidden="true"></span><span><strong>Reported, source pending</strong> <span class="muted">— Appears in project research but the original article has not yet been linked</span></span></li><li><span class="mk mk-none" aria-hidden="true"></span><span><strong>Nothing found yet</strong> <span class="muted">— No documented position found. This does not mean the candidate has no view</span></span></li></ul>
       </div>
-      <div class="models" aria-label="AI models used">
-        <span class="model">Claude</span>
-        <span class="model">ChatGPT</span>
-        <span class="model">Gemini</span>
-        <span class="model">DeepSeek</span>
+      <p class="caveat">A blank cell means we haven't found a documented position yet, not that the candidate doesn't have one. Candidates who publish a written platform will naturally show more here. On a phone, scroll the chart sideways to see every candidate.</p>
+    </div>
+  </section>
+
+  <section id="issues">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Issue by issue</p>
+        <h2>Read the positions side by side.</h2>
+        <p>Candidates appear in alphabetical order under every issue. Summaries are paraphrased from each candidate's own website or from news reports; quotation marks show their exact words.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Issues"><button type="button" role="tab" class="tab" id="tab-tax" aria-controls="panel-tax" aria-selected="true" data-issue="tax">Taxes &amp; spending</button><button type="button" role="tab" class="tab" id="tab-water" aria-controls="panel-water" aria-selected="false" data-issue="water">Water &amp; wastewater</button><button type="button" role="tab" class="tab" id="tab-roads" aria-controls="panel-roads" aria-selected="false" data-issue="roads">Roads &amp; infrastructure</button><button type="button" role="tab" class="tab" id="tab-growth" aria-controls="panel-growth" aria-selected="false" data-issue="growth">Growth &amp; development</button><button type="button" role="tab" class="tab" id="tab-biz" aria-controls="panel-biz" aria-selected="false" data-issue="biz">Economy &amp; red tape</button><button type="button" role="tab" class="tab" id="tab-ag" aria-controls="panel-ag" aria-selected="false" data-issue="ag">Agriculture &amp; rural</button><button type="button" role="tab" class="tab" id="tab-open" aria-controls="panel-open" aria-selected="false" data-issue="open">Transparency &amp; service</button><button type="button" role="tab" class="tab" id="tab-safety" aria-controls="panel-safety" aria-selected="false" data-issue="safety">Public safety &amp; health</button><button type="button" role="tab" class="tab" id="tab-gov" aria-controls="panel-gov" aria-selected="false" data-issue="gov">Other governments</button></div>
+      <div class="panel" role="tabpanel" id="panel-tax" aria-labelledby="tab-tax"><h3 class="panel-title">Taxes &amp; spending</h3><ul class="poslist"><li class="pos pos-pending"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-pending">Reported, source pending</span></div><p>Has said property taxes are too high, and that his years running public works tell him where costs can be reduced.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>Approve only what can be funded and delivered, set development charges so growth pays for growth, and report finances in plain language.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-plan">Written platform</span></div><p>Tax increases at or below inflation “wherever possible,” more predictable budgets and department-level accountability, using efficiencies rather than service cuts. Says he averaged under 2% a year in Haldimand.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-plan">Written platform</span></div><p>Line-by-line budget reviews, including a 90-day operational audit. Says “the money is not being watched carefully,” and criticized hiring four staff for downtown Simcoe.</p></li><li class="pos pos-said"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-said">Public statement</span></div><p>His “A Plan for Norfolk” focuses on funding core services properly and on council decisions that don&#x27;t trade the county&#x27;s future for politically expedient wins.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-water" aria-labelledby="tab-water"><h3 class="panel-title">Water &amp; wastewater</h3><ul class="poslist"><li class="pos pos-pending"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-pending">Reported, source pending</span></div><p>Has criticized the growth in water and wastewater rates since 2022.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>Plan water and wastewater capacity ahead of growth, and stop approving developments that outpace it.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-plan">Written platform</span></div><p>Reclaim servicing capacity held by inactive developers (“use it or lose it”), repair leaking pipes to recover treatment capacity, and seek provincial and federal grants for rural systems.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-roads" aria-labelledby="tab-roads"><h3 class="panel-title">Roads &amp; infrastructure</h3><ul class="poslist"><li class="pos pos-none"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>Rank road work by condition data rather than political timing, and hold capital projects to their timelines and budgets.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-plan">Written platform</span></div><p>Use condition data to plan repairs before problems become more expensive.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-plan">Written platform</span></div><p>Put roads, sidewalks and community centres ahead of other spending.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-growth" aria-labelledby="tab-growth"><h3 class="panel-title">Growth &amp; development</h3><ul class="poslist"><li class="pos pos-none"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>New development should cover the cost of the infrastructure it needs, rather than existing residents.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-said"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-said">Public statement</span></div><p>Calls the current situation around the Nanticoke MZO “not sustainable”; wants “reasonable and responsible growth without outside influence.”</p></li><li class="pos pos-none"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-biz" aria-labelledby="tab-biz"><h3 class="panel-title">Economy &amp; red tape</h3><ul class="poslist"><li class="pos pos-none"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>Grow the industrial and commercial tax base, actively recruit investment, and streamline approvals and permits.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-plan">Written platform</span></div><p>Less red tape, clearer timelines and an “open for business” service culture.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-plan">Written platform</span></div><p>Streamline licensing and permitting for small businesses and new entrepreneurs.</p></li><li class="pos pos-pending"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-pending">Reported, source pending</span></div><p>Has proposed replacing business licensing fees with a flat-fee registry for all businesses.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-ag" aria-labelledby="tab-ag"><h3 class="panel-title">Agriculture &amp; rural</h3><ul class="poslist"><li class="pos pos-pending"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-pending">Reported, source pending</span></div><p>Describes agriculture and tourism as Norfolk&#x27;s two most important industries.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>Support agri-business, food processing and rural economic development, and make sure rural wards get fair service levels.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-plan">Written platform</span></div><p>A four-year moratorium on major urban boundary expansions into prime farmland, stronger right-to-farm protections, and a levy on non-farm development to fund rural drainage and roads.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-open" aria-labelledby="tab-open"><h3 class="panel-title">Transparency &amp; service</h3><ul class="poslist"><li class="pos pos-none"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-said"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-said">Public statement</span></div><p>Wants a more open, transparent county that consults residents before decisions are made, not after.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-plan">Written platform</span></div><p>Online self-service for permits and payments, easy-to-find public data, and measurable customer-service standards.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-plan">Written platform</span></div><p>Clear service standards, online forms with service tracking, better follow-up, and budget dashboards.</p></li><li class="pos pos-said"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-said">Public statement</span></div><p>Advisory committees for each community and more time for residents to address council.</p></li><li class="pos pos-said"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-said">Public statement</span></div><p>Wants services aligned with what residents need, and better communication that reaches residents where they are.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-safety" aria-labelledby="tab-safety"><h3 class="panel-title">Public safety &amp; health</h3><ul class="poslist"><li class="pos pos-none"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-plan">Written platform</span></div><p>Combine his policing background with social supports for main-street safety. Also proposes physician-recruitment packages, emergency-room offload staff to free up paramedics, and rural medical residency bursaries.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li></ul></div>
+<div class="panel" role="tabpanel" id="panel-gov" aria-labelledby="tab-gov"><h3 class="panel-title">Other governments</h3><ul class="poslist"><li class="pos pos-pending"><div class="pos-who"><a href="#brunton">Doug Brunton</a><span class="badge b-pending">Reported, source pending</span></div><p>Has raised concerns about how provincial plans to merge conservation authorities could affect the Long Point region.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#finch">David Finch</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#gilpin">Ken Gilpin</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-none"><div class="pos-who"><a href="#haydt">Noel Haydt</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li><li class="pos pos-plan"><div class="pos-who"><a href="#hewitt">Ken Hewitt</a><span class="badge b-plan">Written platform</span></div><p>Build working relationships with council, staff, neighbouring municipalities, the province, the federal government and Indigenous communities.</p></li><li class="pos pos-said"><div class="pos-who"><a href="#milner">Keith Milner</a><span class="badge b-said">Public statement</span></div><p>Wants MPP Bobbi Ann Brady included, calling her “our voice in Queen&#x27;s Park.”</p></li><li class="pos pos-none"><div class="pos-who"><a href="#veri">Adam Veri</a><span class="badge b-none">Nothing found yet</span></div><p>No documented position found yet.</p></li></ul></div>
+
+    </div>
+  </section>
+
+  <section id="analysis">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">AI analysis</p>
+        <h2>What the analysis found.</h2>
+        <p>Each AI model is given the same sourced material and the same questions. Its job is to describe the field, not to rank it. No model's analysis includes a recommendation.</p>
+      </div>
+      <span class="byline"><span class="mk mk-plan" aria-hidden="true" style="width:10px;height:10px"></span>Analysis by Claude (Anthropic) · Sept 25, 2026</span>
+      <div class="analysis">
+        <div class="card finding">
+          <div class="num">01</div>
+          <h3>Platform depth varies a lot.</h3>
+          <p><strong>Haydt, Hewitt and Milner</strong> have published written platforms on their campaign websites. <strong>Veri's</strong> "A Plan for Norfolk" is described in news coverage. <strong>Brunton's</strong> and <strong>Finch's</strong> positions come mainly from interviews and public events, and no platform was found for <strong>Gilpin</strong>. A thin row in the chart may mean less has been published so far, not that a candidate has less to offer.</p>
+        </div>
+        <div class="card finding">
+          <div class="num">02</div>
+          <h3>Money is the common thread.</h3>
+          <p>Six of seven candidates have spoken about taxes or spending, but they frame it differently. <strong>Hewitt</strong> sets a target of increases at or below inflation. <strong>Milner</strong> says spending isn't being watched closely and wants line-by-line reviews. <strong>Haydt</strong> focuses on budgets that match what can actually be delivered. <strong>Veri</strong> emphasizes properly funding core services and long-term decisions. <strong>Brunton</strong> has reportedly said taxes and water rates are too high (source pending).</p>
+        </div>
+        <div class="card finding">
+          <div class="num">03</div>
+          <h3>Communication is the second theme.</h3>
+          <p>Asked at Port Rowan what one practice they would change, <strong>Finch</strong>, <strong>Haydt</strong>, <strong>Milner</strong> and <strong>Veri</strong> all pointed to how the county communicates with or serves residents, each with a different fix: openness and early consultation (Finch), customer-service standards (Haydt), community advisory committees (Milner), and reaching residents where they are (Veri). <strong>Hewitt's</strong> written plan also includes service standards and tracking.</p>
+        </div>
+        <div class="card finding">
+          <div class="num">04</div>
+          <h3>Specific promises are easier to check.</h3>
+          <p><strong>Milner</strong> has the most individual commitments (a farmland boundary moratorium, a "use it or lose it" servicing bylaw, a development levy). <strong>Hewitt's</strong> inflation target is the single most measurable pledge. <strong>Haydt's</strong> plan is detailed on process and delivery. Voters can hold specific promises to account more easily than general goals.</p>
+        </div>
+        <div class="card finding wide">
+          <div class="num">05</div>
+          <h3>What a mayor can and can't do on their own.</h3>
+          <p>Several commitments depend on council votes, provincial rules or outside partners. This applies to every candidate with specific proposals:</p>
+          <ul>
+            <li><strong>Hewitt's</strong> tax target is measurable, but "wherever possible" leaves room, and council still votes on the budget.</li>
+            <li><strong>Haydt's</strong> "growth pays for growth" relies on development charges, which are limited by provincial law.</li>
+            <li><strong>Milner's</strong> health proposals mix municipal tools (physician-recruitment incentives, which many Ontario municipalities use) with areas mainly run by hospitals and the province (emergency-room staffing, medical training). His farmland and right-to-farm proposals also sit alongside provincial land-use and farming law.</li>
+            <li><strong>Veri's</strong> proposed business registry (source pending) would need council approval to replace the current licensing bylaw.</li>
+            <li><strong>Brunton, Finch and Gilpin</strong> have not yet published specific commitments that can be assessed this way.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="models" aria-label="AI analysis status">
+        <div class="card model"><h3>Claude</h3><p>Anthropic</p><span class="status done">Complete · Sept 25</span></div>
+        <div class="card model"><h3>ChatGPT</h3><p>OpenAI</p><span class="status wait">Coming soon</span></div>
+        <div class="card model"><h3>Gemini</h3><p>Google</p><span class="status wait">Coming soon</span></div>
+        <div class="card model"><h3>DeepSeek</h3><p>DeepSeek</p><span class="status wait">Coming soon</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="context">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Why this race matters more</p>
+        <h2>The next mayor will have "strong mayor" powers.</h2>
+      </div>
+      <div class="two">
+        <div class="card box">
+          <h3>What changed</h3>
+          <p>As of May 1, 2025, the Ontario government extended strong mayor powers to Norfolk County. Council had earlier turned the powers down, but the province applied them anyway. This is the first Norfolk election where voters choose a mayor who will hold them for a full term.</p>
+          <ul>
+            <li>The mayor prepares and proposes the municipal budget.</li>
+            <li>The mayor can veto certain bylaws tied to provincial priorities such as housing. Council can override a veto with a two-thirds vote.</li>
+            <li>The mayor can hire the chief administrative officer and some department heads, and reorganize departments and committees.</li>
+          </ul>
+          <p class="small">Source: <a href="https://www.norfolkcounty.ca/council-administration-and-government/council/" rel="noopener" target="_blank">Norfolk County — Council</a>. See the county site for the full list of powers.</p>
+        </div>
+        <div class="card box">
+          <h3>Questions worth asking at the debates</h3>
+          <ol>
+            <li>How would you use, or limit, strong mayor powers, especially over the budget and senior staff hiring?</li>
+            <li>What is your target for next year's tax increase, and what would you do if it can't be met?</li>
+            <li>What is your plan for water and wastewater rates and capacity?</li>
+            <li>Which of your commitments need provincial or federal approval or funding?</li>
+            <li>What, specifically, would you change in your first 100 days?</li>
+          </ol>
+          <p class="small">Two mayoral debates remain: Sept 30 in Delhi and Oct 13 in Port Dover (see dates below).</p>
+        </div>
       </div>
     </div>
   </section>
@@ -282,60 +386,94 @@
       <div class="section-head">
         <p class="kicker">Meet the candidates</p>
         <h2>Seven candidates for mayor.</h2>
-        <p>Each candidate will get a one-paragraph biography covering their background, experience and connection to the community, followed by the AI analysis of their platform.</p>
+        <p>Listed alphabetically by last name, as on the <a href="https://www.norfolkcounty.ca/vote/certified-candidates/" rel="noopener" target="_blank">county's certified candidate list</a>. Each profile uses the same structure: a short bio, documented positions, what they said at the first public event, and sources.</p>
       </div>
-      <div class="profile-grid">
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">DB</div>
-          <h3>Doug Brunton</h3>
-          <p class="role">Ward 5 (Simcoe) councillor; former head of public works for the Town of Simcoe.</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">DF</div>
-          <h3>David Finch</h3>
-          <p class="role">Former three-term Grimsby councillor; registered psychotherapist.</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">KG</div>
-          <h3>Ken Gilpin</h3>
-          <p class="role">Simcoe resident; heavy equipment technician.</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">NH</div>
-          <h3>Noel Haydt</h3>
-          <p class="role">Former Ward 1 councillor (2014&ndash;2018); business owner.</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">KH</div>
-          <h3>Ken Hewitt</h3>
-          <p class="role">Former Mayor of Haldimand County (2010&ndash;2022).</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">KM</div>
-          <h3>Keith Milner</h3>
-          <p class="role">Port Dover business owner; former RCMP staff sergeant.</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
-        <article class="profile">
-          <div class="avatar" aria-hidden="true">AV</div>
-          <h3>Adam Veri</h3>
-          <p class="role">Ward 6 (Port Dover) councillor and Deputy Mayor.</p>
-          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
-          <p class="soon">Bio &amp; analysis coming soon</p>
-        </article>
+      <div class="cands">
+    <article class="cand" id="brunton">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">DB</div>
+        <div><h3>Doug Brunton</h3><p class="role">Ward 5 (Simcoe) councillor · Chair, LPRCA board</p></div>
+      </header>
+      <p class="bio">Doug Brunton is the Ward 5 (Simcoe) councillor, first elected in 2014 and returned to council in 2022. Before entering politics he was head of public works for the Town of Simcoe, and he currently chairs the board of the Long Point Region Conservation Authority. He did not attend the September 15 Port Rowan event; a representative said he was celebrating his 50th wedding anniversary on a cruise and read an introduction on his behalf.</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li><span class="badge b-pending">Reported, source pending</span><strong>Taxes &amp; spending.</strong> Has said property taxes are too high, and that his years running public works tell him where costs can be reduced.</li><li><span class="badge b-pending">Reported, source pending</span><strong>Water &amp; wastewater.</strong> Has criticized the growth in water and wastewater rates since 2022.</li><li><span class="badge b-pending">Reported, source pending</span><strong>Agriculture &amp; rural.</strong> Describes agriculture and tourism as Norfolk&#x27;s two most important industries.</li><li><span class="badge b-pending">Reported, source pending</span><strong>Other governments.</strong> Has raised concerns about how provincial plans to merge conservation authorities could affect the Long Point region.</li></ul>
+      
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-no">Did not attend</span></span><p>Absent. A representative read his introduction.</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://www.chch.com/chch-news/everything-you-need-to-know-about-the-norfolk-countys-2026-municipal-election/" rel="noopener" target="_blank">CHCH — Norfolk County&#x27;s 2026 municipal election</a></li><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.lprca.on.ca/board-governance/" rel="noopener" target="_blank">LPRCA — Board &amp; Governance</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
+    <article class="cand" id="finch">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">DF</div>
+        <div><h3>David Finch</h3><p class="role">Former three-term Grimsby councillor · Psychotherapist</p></div>
+      </header>
+      <p class="bio">David Finch is a Norfolk native who lives in Port Dover. He served three terms on Grimsby town council, first elected in 2000, and works as a spiritual-care provider and registered psychotherapist. He has not held office in Norfolk. At the Port Rowan event he said poor communication is the county&#x27;s central problem, and that he first got into politics after road-work decisions were made before residents were asked for input.</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li><span class="badge b-said">Public statement</span><strong>Transparency &amp; service.</strong> Wants a more open, transparent county that consults residents before decisions are made, not after.</li></ul>
+      
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-yes">Attended</span></span><p>“Communication sucks. Period. And the county needs to become better at that and be more open and transparent.”</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.portdovermapleleaf.com/norfolk-county-election-set-for-october-26/" rel="noopener" target="_blank">Port Dover Maple Leaf — Norfolk County election set for October 26</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
+    <article class="cand" id="gilpin">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">KG</div>
+        <div><h3>Ken Gilpin</h3><p class="role">Simcoe resident · Heavy equipment technician</p></div>
+      </header>
+      <p class="bio">Ken Gilpin is a Simcoe resident and heavy equipment technician. He was the People&#x27;s Party of Canada candidate in Haldimand–Norfolk in the 2021 federal election, and filed his mayoral nomination on the final day of the nomination period, August 21, 2026. He has not held elected office. Organizers of the Port Rowan event said he was invited but did not reply, and no campaign platform had been found at the time of writing.</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li class="empty">No campaign platform found yet. If you are this candidate, please <a href="mailto:dskura@gmail.com">send your platform</a> and it will be added using the same method as everyone else.</li></ul>
+      
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-no">Did not attend</span></span><p>Absent. Organizers said he was invited but did not reply.</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.portdovermapleleaf.com/norfolk-county-election-set-for-october-26/" rel="noopener" target="_blank">Port Dover Maple Leaf — Norfolk County election set for October 26</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
+    <article class="cand" id="haydt">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">NH</div>
+        <div><h3>Noel Haydt</h3><p class="role">Former Ward 1 councillor (2014–2018) · Business owner</p></div>
+      </header>
+      <p class="bio">Noel Haydt represented Ward 1 (the Port Rowan area) on Norfolk council from 2014 to 2018 and chaired the Long Point Region Conservation Authority board during that term. He owns a business and describes more than two decades of experience in technology infrastructure, operations and real estate investment. He ran unsuccessfully in a 2021 council byelection. Former Norfolk mayor Kristal Chopp has publicly endorsed him. His platform is built on four priorities: fix the numbers, build real growth, deliver infrastructure and modernize county services.</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li><span class="badge b-plan">Written platform</span><strong>Taxes &amp; spending.</strong> Approve only what can be funded and delivered, set development charges so growth pays for growth, and report finances in plain language.</li><li><span class="badge b-plan">Written platform</span><strong>Water &amp; wastewater.</strong> Plan water and wastewater capacity ahead of growth, and stop approving developments that outpace it.</li><li><span class="badge b-plan">Written platform</span><strong>Roads &amp; infrastructure.</strong> Rank road work by condition data rather than political timing, and hold capital projects to their timelines and budgets.</li><li><span class="badge b-plan">Written platform</span><strong>Growth &amp; development.</strong> New development should cover the cost of the infrastructure it needs, rather than existing residents.</li><li><span class="badge b-plan">Written platform</span><strong>Economy &amp; red tape.</strong> Grow the industrial and commercial tax base, actively recruit investment, and streamline approvals and permits.</li><li><span class="badge b-plan">Written platform</span><strong>Agriculture &amp; rural.</strong> Support agri-business, food processing and rural economic development, and make sure rural wards get fair service levels.</li><li><span class="badge b-plan">Written platform</span><strong>Transparency &amp; service.</strong> Online self-service for permits and payments, easy-to-find public data, and measurable customer-service standards.</li></ul>
+      
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-yes">Attended</span></span><p>“You shouldn&#x27;t have to figure out which department owns your problem.” Called for measurable customer-service standards.</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://noelformayor.ca/priorities/" rel="noopener" target="_blank">Noel Haydt — Priorities</a></li><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.lprca.on.ca/2017/01/19/lprca-elects-new-chair-and-vice-chair/" rel="noopener" target="_blank">LPRCA — New chair and vice-chair (2017)</a></li><li><a href="https://www.chch.com/chch-news/everything-you-need-to-know-about-the-norfolk-countys-2026-municipal-election/" rel="noopener" target="_blank">CHCH — Norfolk County&#x27;s 2026 municipal election</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
+    <article class="cand" id="hewitt">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">KH</div>
+        <div><h3>Ken Hewitt</h3><p class="role">Mayor of Haldimand County (2010–2022)</p></div>
+      </header>
+      <p class="bio">Ken Hewitt was mayor of Haldimand County for three terms, from 2010 to 2022, finishing third when he sought a fourth. He ran as the Progressive Conservative candidate in Haldimand–Norfolk in the 2022 provincial election and as the Conservative candidate in Hamilton Mountain in the 2025 federal election, losing both, and resigned from the Ontario Land Tribunal to run for mayor. He has lived in Turkey Point for about five years, is president of the Turkey Point Properties Owners Association, and works as a business consultant.</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li><span class="badge b-plan">Written platform</span><strong>Taxes &amp; spending.</strong> Tax increases at or below inflation “wherever possible,” more predictable budgets and department-level accountability, using efficiencies rather than service cuts. Says he averaged under 2% a year in Haldimand.</li><li><span class="badge b-plan">Written platform</span><strong>Roads &amp; infrastructure.</strong> Use condition data to plan repairs before problems become more expensive.</li><li><span class="badge b-plan">Written platform</span><strong>Economy &amp; red tape.</strong> Less red tape, clearer timelines and an “open for business” service culture.</li><li><span class="badge b-plan">Written platform</span><strong>Transparency &amp; service.</strong> Clear service standards, online forms with service tracking, better follow-up, and budget dashboards.</li><li><span class="badge b-plan">Written platform</span><strong>Other governments.</strong> Build working relationships with council, staff, neighbouring municipalities, the province, the federal government and Indigenous communities.</li></ul>
+      
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-yes">Attended</span></span><p>Wants tax increases “back down to inflation or less,” and pledged to deal with roadside weeds in Ward 1.</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://kenhewitt.com/plan/" rel="noopener" target="_blank">Ken Hewitt — Priorities</a></li><li><a href="https://www.granthaven.com/post/ken-hewitt-running-for-norfolk-mayor" rel="noopener" target="_blank">Grant Haven Media — Ken Hewitt running for Norfolk mayor</a></li><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
+    <article class="cand" id="milner">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">KM</div>
+        <div><h3>Keith Milner</h3><p class="role">Port Dover business owner · Retired RCMP staff sergeant</p></div>
+      </header>
+      <p class="bio">Keith Milner is a Port Dover native who joined the RCMP at 19 and retired as a staff sergeant after close to 40 years of service. He founded and owns Bronte Shore Yacht Sales in Port Dover and has served as president of the Waterfront Preservation Association. He has not held elected office. Before running, he spoke at council against spending he considered wasteful, including a proposed $100,000 marina pavilion refurbishment.</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li><span class="badge b-plan">Written platform</span><strong>Taxes &amp; spending.</strong> Line-by-line budget reviews, including a 90-day operational audit. Says “the money is not being watched carefully,” and criticized hiring four staff for downtown Simcoe.</li><li><span class="badge b-plan">Written platform</span><strong>Water &amp; wastewater.</strong> Reclaim servicing capacity held by inactive developers (“use it or lose it”), repair leaking pipes to recover treatment capacity, and seek provincial and federal grants for rural systems.</li><li><span class="badge b-plan">Written platform</span><strong>Roads &amp; infrastructure.</strong> Put roads, sidewalks and community centres ahead of other spending.</li><li><span class="badge b-said">Public statement</span><strong>Growth &amp; development.</strong> Calls the current situation around the Nanticoke MZO “not sustainable”; wants “reasonable and responsible growth without outside influence.”</li><li><span class="badge b-plan">Written platform</span><strong>Economy &amp; red tape.</strong> Streamline licensing and permitting for small businesses and new entrepreneurs.</li><li><span class="badge b-plan">Written platform</span><strong>Agriculture &amp; rural.</strong> A four-year moratorium on major urban boundary expansions into prime farmland, stronger right-to-farm protections, and a levy on non-farm development to fund rural drainage and roads.</li><li><span class="badge b-said">Public statement</span><strong>Transparency &amp; service.</strong> Advisory committees for each community and more time for residents to address council.</li><li><span class="badge b-plan">Written platform</span><strong>Public safety &amp; health.</strong> Combine his policing background with social supports for main-street safety. Also proposes physician-recruitment packages, emergency-room offload staff to free up paramedics, and rural medical residency bursaries.</li><li><span class="badge b-said">Public statement</span><strong>Other governments.</strong> Wants MPP Bobbi Ann Brady included, calling her “our voice in Queen&#x27;s Park.”</li></ul>
+      
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-yes">Attended</span></span><p>Proposed advisory committees for each community and longer deputations at council: “make people part of the solution, not the target.”</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://keithmilner4mayor.ca/" rel="noopener" target="_blank">Keith Milner — Campaign site</a></li><li><a href="https://keithmilner4mayor.ca/unlocking-water-wastewater-capacity-keith-milner/" rel="noopener" target="_blank">Keith Milner — Water &amp; wastewater capacity</a></li><li><a href="https://keithmilner4mayor.ca/protecting-prime-agricultural-soil-keith-milner/" rel="noopener" target="_blank">Keith Milner — Protecting prime agricultural soil</a></li><li><a href="https://keithmilner4mayor.ca/fixing-the-rural-healthcare-shortage-keith-milner/" rel="noopener" target="_blank">Keith Milner — Rural healthcare shortage</a></li><li><a href="https://www.granthaven.com/post/former-rcmp-staff-sergeant-keith-milner-to-run-for-mayor" rel="noopener" target="_blank">Grant Haven Media — Keith Milner to run for mayor</a></li><li><a href="https://www.portdovermapleleaf.com/norfolk-county-election-set-for-october-26/" rel="noopener" target="_blank">Port Dover Maple Leaf — Norfolk County election set for October 26</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
+    <article class="cand" id="veri">
+      <header class="cand-head">
+        <div class="avatar" aria-hidden="true">AV</div>
+        <div><h3>Adam Veri</h3><p class="role">Ward 6 (Port Dover) councillor · Deputy Mayor</p></div>
+      </header>
+      <p class="bio">Adam Veri has been the Ward 6 (Port Dover) councillor since 2022 and is Deputy Mayor. His background is in community improvement projects, small-business development and non-profit leadership, and he is past chair or president of the Norfolk County Public Library Board, the Port Dover Board of Trade and the Rotary Club of Simcoe. He has said he did not originally plan to run for mayor and entered after encouragement from residents. His platform is titled “A Plan for Norfolk.”</p>
+      <h4>Documented positions</h4>
+      <ul class="plist"><li><span class="badge b-said">Public statement</span><strong>Taxes &amp; spending.</strong> His “A Plan for Norfolk” focuses on funding core services properly and on council decisions that don&#x27;t trade the county&#x27;s future for politically expedient wins.</li><li><span class="badge b-pending">Reported, source pending</span><strong>Economy &amp; red tape.</strong> Has proposed replacing business licensing fees with a flat-fee registry for all businesses.</li><li><span class="badge b-said">Public statement</span><strong>Transparency &amp; service.</strong> Wants services aligned with what residents need, and better communication that reaches residents where they are.</li></ul>
+      <p class="note">Also reported, source pending: has said the county is in its best financial shape in years, with reserves growing and debt falling.</p>
+      <div class="event"><span class="event-label">Port Rowan, Sept 15 <span class="att att-yes">Attended</span></span><p>Said the county could do “a much better job” of communicating, getting information to residents where they are.</p></div>
+      <details><summary>Sources</summary><ul class="srclist"><li><a href="https://www.chch.com/chch-news/everything-you-need-to-know-about-the-norfolk-countys-2026-municipal-election/" rel="noopener" target="_blank">CHCH — Norfolk County&#x27;s 2026 municipal election</a></li><li><a href="https://www.norfolktoday.ca/2026/08/04/168147/" rel="noopener" target="_blank">NorfolkToday — Veri joins mayoral race</a></li><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li></ul></details>
+    </article>
       </div>
-      <p class="fineprint">Candidates listed alphabetically by last name. Source: <a href="https://www.norfolkcounty.ca/vote/certified-candidates/" rel="noopener">Norfolk County certified candidates list</a>.</p>
     </div>
   </section>
 
@@ -347,24 +485,34 @@
         <p>Public events are the best way to see candidates answer questions directly. Check with organizers for any changes.</p>
       </div>
       <ol class="timeline">
-        <li class="past"><time>Tue, Sept 15</time><div><h3>Port Rowan All Candidates Night</h3><p>Port Rowan Community Centre · Long Point Country Chamber of Commerce</p></div></li>
-        <li><time>Wed, Sept 30</time><div><h3>Mayoral debate (agriculture &amp; rural focus)</h3><p>Delhi German Home, 443 James St. · Norfolk Federation of Agriculture · Mayoral debate begins 8 p.m.</p></div></li>
-        <li><time>Tue, Oct 13</time><div><h3>Mayoral candidate debate</h3><p>Port Dover Community Centre, 801 St. George St. · 7&ndash;9 p.m., doors 6:30 p.m.</p></div></li>
-        <li class="key"><time>Mon, Oct 26</time><div><h3>Election day</h3><p>See <a href="https://www.norfolkcounty.ca/vote/" rel="noopener">norfolkcounty.ca/vote</a> for how and where to vote.</p></div></li>
+        <li class="past"><time>Tue, Sept 15</time><div><h3>Port Rowan All Candidates Night</h3><p>Port Rowan Community Centre · Long Point Country Chamber of Commerce. Five of seven mayoral candidates attended.</p></div></li>
+        <li><time>Wed, Sept 30</time><div><h3>Mayoral debate (agriculture &amp; rural focus)</h3><p>Delhi German Home, 443 James St. · Norfolk Federation of Agriculture · Ward candidates 7–8 p.m., mayoral debate 8 p.m.</p></div></li>
+        <li><time>Tue, Oct 13</time><div><h3>Mayoral candidate debate</h3><p>Port Dover Community Centre, 801 St. George St. · 7–9 p.m., doors 6:30 p.m.</p></div></li>
+        <li class="key"><time>Mon, Oct 26</time><div><h3>Election day</h3><p>See <a href="https://www.norfolkcounty.ca/vote/" rel="noopener" target="_blank">norfolkcounty.ca/vote</a> for online and in-person voting options.</p></div></li>
       </ol>
     </div>
   </section>
 
-  <section id="principles">
+  <section id="method">
     <div class="wrap">
       <div class="section-head">
         <p class="kicker">Our commitments</p>
         <h2>Built to inform, not persuade.</h2>
       </div>
       <div class="principles">
-        <div class="principle"><h3>Nonpartisan</h3><p>This site does not endorse any candidate and is not affiliated with any campaign or party. Every candidate is treated the same way.</p></div>
-        <div class="principle"><h3>Transparent</h3><p>The questions asked, the source material used, and each model's answers will be published so anyone can see how the results were produced.</p></div>
-        <div class="principle"><h3>Verify for yourself</h3><p>AI models can make mistakes. Use this guide as a starting point, and check the candidates' own words before you vote.</p></div>
+        <div class="principle"><h3>Nonpartisan</h3><p>This site does not endorse any candidate and is not affiliated with any campaign or party. Every candidate gets the same structure, the same issues and the same scrutiny.</p></div>
+        <div class="principle"><h3>Sourced</h3><p>Every position links to a campaign website or a news report. Anything we couldn't trace to an original source is marked "source pending."</p></div>
+        <div class="principle"><h3>Verify for yourself</h3><p>AI models can make mistakes, and campaigns change. Use this guide as a starting point and check the candidates' own words before you vote.</p></div>
+      </div>
+      <div class="card method">
+        <h3>How this was put together</h3>
+        <ul>
+          <li>Candidate list from Norfolk County's official certified candidates notice.</li>
+          <li>Positions taken from candidates' campaign websites and local news coverage published up to September 25, 2026.</li>
+          <li>Candidate claims about their own records (for example, past tax results) are reported as claims, in their own words.</li>
+          <li>Prior party candidacies are listed for every candidate who has run for provincial or federal office.</li>
+        </ul>
+        <details><summary>All sources</summary><ul class="allsrc"><li><a href="https://www.norfolkcounty.ca/vote/certified-candidates/" rel="noopener" target="_blank">Norfolk County — Certified candidates</a></li><li><a href="https://www.portdovermapleleaf.com/mayoral-candidates-make-their-case/" rel="noopener" target="_blank">Port Dover Maple Leaf — Mayoral candidates make their case (Sept 23, 2026)</a></li><li><a href="https://www.portdovermapleleaf.com/norfolk-county-election-set-for-october-26/" rel="noopener" target="_blank">Port Dover Maple Leaf — Norfolk County election set for October 26</a></li><li><a href="https://www.chch.com/chch-news/everything-you-need-to-know-about-the-norfolk-countys-2026-municipal-election/" rel="noopener" target="_blank">CHCH — Norfolk County&#x27;s 2026 municipal election</a></li><li><a href="https://www.pentictonherald.ca/spare_news/article_b64ea65c-470b-5a6d-94be-3237f166ce3d.html" rel="noopener" target="_blank">Hamilton Spectator (via Penticton Herald) — Seven candidates running for mayor</a></li><li><a href="https://www.lprca.on.ca/board-governance/" rel="noopener" target="_blank">LPRCA — Board &amp; Governance</a></li><li><a href="https://www.lprca.on.ca/2017/01/19/lprca-elects-new-chair-and-vice-chair/" rel="noopener" target="_blank">LPRCA — New chair and vice-chair (2017)</a></li><li><a href="https://noelformayor.ca/priorities/" rel="noopener" target="_blank">Noel Haydt — Priorities</a></li><li><a href="https://kenhewitt.com/plan/" rel="noopener" target="_blank">Ken Hewitt — Priorities</a></li><li><a href="https://www.granthaven.com/post/ken-hewitt-running-for-norfolk-mayor" rel="noopener" target="_blank">Grant Haven Media — Ken Hewitt running for Norfolk mayor</a></li><li><a href="https://keithmilner4mayor.ca/" rel="noopener" target="_blank">Keith Milner — Campaign site</a></li><li><a href="https://keithmilner4mayor.ca/unlocking-water-wastewater-capacity-keith-milner/" rel="noopener" target="_blank">Keith Milner — Water &amp; wastewater capacity</a></li><li><a href="https://keithmilner4mayor.ca/protecting-prime-agricultural-soil-keith-milner/" rel="noopener" target="_blank">Keith Milner — Protecting prime agricultural soil</a></li><li><a href="https://keithmilner4mayor.ca/fixing-the-rural-healthcare-shortage-keith-milner/" rel="noopener" target="_blank">Keith Milner — Rural healthcare shortage</a></li><li><a href="https://www.granthaven.com/post/former-rcmp-staff-sergeant-keith-milner-to-run-for-mayor" rel="noopener" target="_blank">Grant Haven Media — Keith Milner to run for mayor</a></li><li><a href="https://www.norfolktoday.ca/2026/08/04/168147/" rel="noopener" target="_blank">NorfolkToday — Veri joins mayoral race</a></li><li><a href="https://www.norfolktoday.ca/2026/09/10/norfolk-voters-to-hear-from-mayoral-and-ward-candidates-at-debates-throughout-september-and-october/" rel="noopener" target="_blank">NorfolkToday — Debate schedule</a></li><li><a href="https://www.norfolkcounty.ca/council-administration-and-government/council/" rel="noopener" target="_blank">Norfolk County — Council (Strong Mayor Powers)</a></li></ul></details>
       </div>
     </div>
   </section>
@@ -374,7 +522,7 @@
       <div class="notice">
         <div>
           <h2>Are you a candidate, or spot something to fix?</h2>
-          <p>Candidates are welcome to share their official platform materials, and anyone can send a correction. Accuracy matters more than anything here.</p>
+          <p>Candidates are welcome to send their official platform, and anyone can send a correction with a source. Changes are applied the same way for every candidate.</p>
         </div>
         <a class="btn" href="mailto:dskura@gmail.com">Get in touch</a>
       </div>
@@ -384,10 +532,45 @@
 
 <footer>
   <div class="wrap">
-    <span>&copy; 2026 Norfolk Votes, Clearly · An independent voter information project</span>
+    <span>&copy; 2026 Norfolk Votes, Clearly · An independent voter information project · Last updated Sept 25, 2026</span>
     <span>Contact: <a href="mailto:dskura@gmail.com">dskura@gmail.com</a></span>
   </div>
 </footer>
 
+<script>
+(function () {
+  document.body.classList.remove('no-js');
+  document.body.classList.add('js');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  function show(id, focus) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-issue') === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+      if (on) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
+    panels.forEach(function (p) { p.hidden = p.id !== 'panel-' + id; });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t.getAttribute('data-issue')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        var n = (i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length;
+        show(tabs[n].getAttribute('data-issue'), true);
+        e.preventDefault();
+      }
+    });
+  });
+  document.querySelectorAll('.rowbtn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      show(b.getAttribute('data-issue'));
+      document.getElementById('issues').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  if (tabs.length) show(tabs[0].getAttribute('data-issue'));
+})();
+</script>
 </body>
 </html>
