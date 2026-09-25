@@ -1,15 +1,314 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="EditPlus®">
-  <meta name="Author" content="Dave Skura">
-  <meta name="Keywords" content="Norfolk,Municipal,Election,2026,Mayor">
-  <meta name="Description" content="">
-  <title>Norfolk Municipal Election 2026</title>
- </head>
- <body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norfolk Mayoral Race 2026 — AI Platform Comparison</title>
+<meta name="description" content="A nonpartisan, side-by-side look at the 2026 Norfolk County mayoral candidates, with each campaign platform analyzed by four AI models: Claude, ChatGPT, Gemini and DeepSeek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f3ec;
+    --card: #fffdf8;
+    --ink: #14213d;
+    --ink-soft: #4a5570;
+    --line: #e2dccf;
+    --accent: #c8553d;
+    --accent-soft: #f3ddd5;
+    --navy: #1d3557;
+    --gold: #d9a441;
+    --shadow: 0 1px 2px rgba(20,33,61,.06), 0 8px 24px rgba(20,33,61,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0f1626;
+      --card: #172036;
+      --ink: #eef1f7;
+      --ink-soft: #a7b0c4;
+      --line: #27324c;
+      --accent: #e57a60;
+      --accent-soft: #3a2621;
+      --navy: #8fb3e0;
+      --gold: #e6b75a;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; letter-spacing: -0.01em; }
+  a { color: var(--accent); }
 
- </body>
+  /* Top bar */
+  .topbar { border-bottom: 1px solid var(--line); }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; text-decoration: none; color: var(--ink); }
+  .brand-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--navy); display: grid; place-items: center; }
+  .brand-mark svg { width: 18px; height: 18px; }
+  .pill { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+
+  /* Hero */
+  .hero { padding: 88px 0 72px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 79px, var(--line) 79px 80px);
+    opacity: .35; pointer-events: none;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  }
+  .hero .wrap { position: relative; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--accent); }
+  .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 700; max-width: 14ch; }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--navy); }
+  .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--ink-soft); max-width: 60ch; margin-top: 28px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); max-width: 720px; }
+  .hero-meta div { font-size: 14px; color: var(--ink-soft); }
+  .hero-meta strong { display: block; font-family: "Fraunces", Georgia, serif; font-size: 22px; color: var(--ink); font-weight: 600; }
+
+  section { padding: 72px 0; }
+  .section-head { max-width: 640px; margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; }
+  .section-head p { color: var(--ink-soft); margin-top: 12px; }
+  .kicker { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
+  .about p + p { margin-top: 18px; }
+  .about .prose { color: var(--ink); }
+  .callout { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px; box-shadow: var(--shadow); }
+  .callout h3 { font-size: 20px; margin-bottom: 14px; }
+  .callout ul { list-style: none; }
+  .callout li { padding: 10px 0 10px 30px; position: relative; border-top: 1px solid var(--line); font-size: 15px; }
+  .callout li:first-child { border-top: 0; }
+  .callout li::before { content: ""; position: absolute; left: 4px; top: 17px; width: 12px; height: 7px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px; box-shadow: var(--shadow); counter-increment: step; }
+  .step::before { content: "0" counter(step); font-family: "Fraunces", Georgia, serif; font-size: 34px; font-weight: 600; color: var(--gold); display: block; margin-bottom: 14px; }
+  .step h3 { font-size: 19px; margin-bottom: 8px; }
+  .step p { font-size: 15px; color: var(--ink-soft); }
+
+  /* Preview table */
+  .preview { background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; position: relative; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+  thead th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; background: var(--paper); }
+  tbody th { font-weight: 600; color: var(--ink); width: 22%; }
+  .bar { height: 10px; border-radius: 6px; background: var(--line); position: relative; overflow: hidden; }
+  .bar span { position: absolute; inset: 0 auto 0 0; border-radius: 6px; background: linear-gradient(90deg, var(--navy), var(--accent)); opacity: .35; }
+  .shimmer { position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 2.4s infinite linear; pointer-events: none; }
+  @media (prefers-color-scheme: dark) { .shimmer { background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%); background-size: 200% 100%; } }
+  @keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+  @media (prefers-reduced-motion: reduce) { .shimmer { animation: none; } }
+  .overlay { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--card) 70%, transparent) 55%); }
+  .overlay-badge { background: var(--ink); color: var(--paper); padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px; margin-top: 80px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 1.6s infinite ease-in-out; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .models { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .model { font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); }
+
+  /* Profile preview */
+  .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .profile { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--line); margin-bottom: 18px; position: relative; overflow: hidden; }
+  .line { height: 10px; border-radius: 6px; background: var(--line); margin-top: 10px; }
+  .line.title { height: 16px; width: 60%; margin-top: 0; }
+  .line.w90 { width: 90%; } .line.w75 { width: 75%; } .line.w50 { width: 50%; }
+  .tags { display: flex; gap: 8px; margin-top: 18px; }
+  .tag { height: 24px; width: 64px; border-radius: 999px; background: var(--accent-soft); }
+
+  /* Principles */
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .principle { border-top: 3px solid var(--navy); padding-top: 20px; }
+  .principle h3 { font-size: 21px; margin-bottom: 8px; }
+  .principle p { color: var(--ink-soft); font-size: 15px; }
+
+  .notice { background: var(--navy); color: #fff; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+  @media (prefers-color-scheme: dark) { .notice { background: #22345a; } }
+  .notice h2 { font-size: 28px; font-weight: 600; }
+  .notice p { opacity: .85; margin-top: 8px; max-width: 58ch; }
+  .notice a.btn { display: inline-block; background: var(--gold); color: #14213d; text-decoration: none; font-weight: 600; padding: 14px 24px; border-radius: 12px; white-space: nowrap; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 40px; font-size: 14px; color: var(--ink-soft); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+
+  @media (max-width: 860px) {
+    .about { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .profile-grid { grid-template-columns: 1fr; }
+    .profile-grid .profile:nth-child(n+2) { display: none; }
+    .principles { grid-template-columns: 1fr; gap: 24px; }
+    .notice { grid-template-columns: 1fr; padding: 28px; }
+  }
+  @media (max-width: 520px) {
+    .steps { grid-template-columns: 1fr; }
+    .hero { padding: 56px 0 48px; }
+    section { padding: 52px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>
+      </span>
+      Norfolk Votes, Clearly
+    </a>
+    <span class="pill">Coming soon</span>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Norfolk County Mayoral Election 2026</p>
+      <h1>Know what you're <em>voting for.</em></h1>
+      <p class="lede">A plain-language, side-by-side guide to every mayoral candidate's platform, analyzed independently by four leading AI models so you can compare where the candidates stand in minutes, not hours.</p>
+      <div class="hero-meta">
+        <div><strong>Oct 26, 2026</strong>Election day</div>
+        <div><strong>4 AI models</strong>Independent analyses</div>
+        <div><strong>Every candidate</strong>Same questions, same format</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="prose">
+        <p class="kicker">About this project</p>
+        <h2 style="font-size:clamp(28px,4vw,40px);font-weight:600;margin-bottom:20px;">Campaign promises, made easy to compare.</h2>
+        <p>Every election, voters are asked to make an important decision with scattered information: a flyer here, a debate clip there, a website that may or may not answer the questions you care about. This project brings it all into one place.</p>
+        <p>Each mayoral candidate's publicly available campaign material will be gathered and given to four AI models: <strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong> and <strong>DeepSeek</strong>. Each model is asked the same questions about every candidate, and the results are laid out in a single comparison chart. Where the models agree, you can read with confidence. Where they differ, you'll see that too.</p>
+        <p>Alongside the analysis, each candidate will have a short, factual biography so you know who they are before you read what they propose.</p>
+      </div>
+      <aside class="callout">
+        <h3>What you'll find here</h3>
+        <ul>
+          <li>A one-paragraph bio for every mayoral candidate</li>
+          <li>Key platform positions, summarized in plain language</li>
+          <li>A comparison chart across all candidates and all four AI models</li>
+          <li>Links back to each candidate's own campaign sources</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">How it works</p>
+        <h2>One method, applied to everyone.</h2>
+        <p>The same process is used for every candidate, so no one gets a different set of questions or a friendlier summary.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Gather</h3><p>Collect each candidate's public platform, website, and published statements.</p></div>
+        <div class="step"><h3>Ask</h3><p>Give every AI model the same material and the same set of questions.</p></div>
+        <div class="step"><h3>Compare</h3><p>Line up the answers side by side, by candidate and by issue.</p></div>
+        <div class="step"><h3>Publish</h3><p>Share the results with sources, so you can check anything yourself.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preview">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Sneak peek</p>
+        <h2>The comparison chart.</h2>
+        <p>Candidate names and results will appear here once the research is complete.</p>
+      </div>
+      <div class="preview">
+        <div class="table-scroll">
+          <table aria-label="Placeholder comparison chart">
+            <thead>
+              <tr><th>Issue</th><th>Candidate A</th><th>Candidate B</th><th>Candidate C</th><th>Candidate D</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>Taxes &amp; budget</th><td><div class="bar"><span style="width:70%"></span></div></td><td><div class="bar"><span style="width:45%"></span></div></td><td><div class="bar"><span style="width:85%"></span></div></td><td><div class="bar"><span style="width:55%"></span></div></td></tr>
+              <tr><th>Housing</th><td><div class="bar"><span style="width:50%"></span></div></td><td><div class="bar"><span style="width:80%"></span></div></td><td><div class="bar"><span style="width:40%"></span></div></td><td><div class="bar"><span style="width:65%"></span></div></td></tr>
+              <tr><th>Roads &amp; infrastructure</th><td><div class="bar"><span style="width:60%"></span></div></td><td><div class="bar"><span style="width:35%"></span></div></td><td><div class="bar"><span style="width:75%"></span></div></td><td><div class="bar"><span style="width:50%"></span></div></td></tr>
+              <tr><th>Agriculture &amp; economy</th><td><div class="bar"><span style="width:80%"></span></div></td><td><div class="bar"><span style="width:60%"></span></div></td><td><div class="bar"><span style="width:45%"></span></div></td><td><div class="bar"><span style="width:70%"></span></div></td></tr>
+              <tr><th>Community services</th><td><div class="bar"><span style="width:40%"></span></div></td><td><div class="bar"><span style="width:70%"></span></div></td><td><div class="bar"><span style="width:60%"></span></div></td><td><div class="bar"><span style="width:85%"></span></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="shimmer"></div>
+        <div class="overlay"><span class="overlay-badge"><span class="dot"></span>Analysis in progress</span></div>
+      </div>
+      <div class="models" aria-label="AI models used">
+        <span class="model">Claude</span>
+        <span class="model">ChatGPT</span>
+        <span class="model">Gemini</span>
+        <span class="model">DeepSeek</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="candidates">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Meet the candidates</p>
+        <h2>Short bios, coming soon.</h2>
+        <p>Each candidate will get a one-paragraph biography covering their background, experience and connection to the community.</p>
+      </div>
+      <div class="profile-grid" aria-hidden="true">
+        <div class="profile"><div class="avatar"><div class="shimmer"></div></div><div class="line title"></div><div class="line w90"></div><div class="line w75"></div><div class="line w50"></div><div class="tags"><span class="tag"></span><span class="tag"></span></div></div>
+        <div class="profile"><div class="avatar"><div class="shimmer"></div></div><div class="line title"></div><div class="line w90"></div><div class="line w75"></div><div class="line w50"></div><div class="tags"><span class="tag"></span><span class="tag"></span></div></div>
+        <div class="profile"><div class="avatar"><div class="shimmer"></div></div><div class="line title"></div><div class="line w90"></div><div class="line w75"></div><div class="line w50"></div><div class="tags"><span class="tag"></span><span class="tag"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Our commitments</p>
+        <h2>Built to inform, not persuade.</h2>
+      </div>
+      <div class="principles">
+        <div class="principle"><h3>Nonpartisan</h3><p>This site does not endorse any candidate and is not affiliated with any campaign or party. Every candidate is treated the same way.</p></div>
+        <div class="principle"><h3>Transparent</h3><p>The questions asked, the source material used, and each model's answers will be published so anyone can see how the results were produced.</p></div>
+        <div class="principle"><h3>Verify for yourself</h3><p>AI models can make mistakes. Use this guide as a starting point, and check the candidates' own words before you vote.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="notice">
+        <div>
+          <h2>Are you a candidate, or spot something to fix?</h2>
+          <p>Candidates are welcome to share their official platform materials, and anyone can send a correction. Accuracy matters more than anything here.</p>
+        </div>
+        <a class="btn" href="mailto:yourname@example.com">Get in touch</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Norfolk Votes, Clearly · An independent voter information project</span>
+    <span>Contact: <a href="mailto:yourname@example.com">yourname@example.com</a></span>
+  </div>
+</footer>
+
+</body>
 </html>
