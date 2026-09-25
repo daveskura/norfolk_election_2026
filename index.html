@@ -105,7 +105,7 @@
   /* Preview table */
   .preview { background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; position: relative; }
   .table-scroll { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  table { width: 100%; border-collapse: collapse; min-width: 820px; }
   th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
   thead th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; background: var(--paper); }
   tbody th { font-weight: 600; color: var(--ink); width: 22%; }
@@ -147,16 +147,32 @@
   footer { border-top: 1px solid var(--line); padding: 36px 0 48px; margin-top: 40px; font-size: 14px; color: var(--ink-soft); }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
 
+  .profile { display: flex; flex-direction: column; }
+  .profile h3 { font-size: 21px; margin-bottom: 4px; }
+  .avatar { display: grid; place-items: center; font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 20px; color: var(--navy); background: var(--accent-soft); }
+  .role { font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; min-height: 44px; }
+  .soon { margin-top: 16px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .fineprint { margin-top: 20px; font-size: 13px; color: var(--ink-soft); }
+  .timeline { list-style: none; border-left: 2px solid var(--line); margin-left: 8px; }
+  .timeline li { position: relative; padding: 0 0 28px 28px; display: grid; grid-template-columns: 130px 1fr; gap: 16px; }
+  .timeline li::before { content: ""; position: absolute; left: -8px; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: var(--card); border: 2px solid var(--navy); }
+  .timeline li.key::before { background: var(--accent); border-color: var(--accent); }
+  .timeline li.past { opacity: .55; }
+  .timeline time { font-weight: 600; font-size: 15px; }
+  .timeline h3 { font-size: 19px; margin-bottom: 4px; }
+  .timeline p { font-size: 15px; color: var(--ink-soft); }
+  @media (max-width: 600px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
+
   @media (max-width: 860px) {
     .about { grid-template-columns: 1fr; }
     .steps { grid-template-columns: repeat(2, 1fr); }
-    .profile-grid { grid-template-columns: 1fr; }
-    .profile-grid .profile:nth-child(n+2) { display: none; }
+    .profile-grid { grid-template-columns: 1fr 1fr; }
     .principles { grid-template-columns: 1fr; gap: 24px; }
     .notice { grid-template-columns: 1fr; padding: 28px; }
   }
   @media (max-width: 520px) {
     .steps { grid-template-columns: 1fr; }
+    .profile-grid { grid-template-columns: 1fr; }
     .hero { padding: 56px 0 48px; }
     section { padding: 52px 0; }
   }
@@ -185,7 +201,7 @@
       <div class="hero-meta">
         <div><strong>Oct 26, 2026</strong>Election day</div>
         <div><strong>4 AI models</strong>Independent analyses</div>
-        <div><strong>Every candidate</strong>Same questions, same format</div>
+        <div><strong>7 candidates</strong>Same questions, same format</div>
       </div>
     </div>
   </div>
@@ -232,20 +248,20 @@
       <div class="section-head">
         <p class="kicker">Sneak peek</p>
         <h2>The comparison chart.</h2>
-        <p>Candidate names and results will appear here once the research is complete.</p>
+        <p>Results will appear here once the research is complete. On a phone, scroll sideways to see every candidate.</p>
       </div>
       <div class="preview">
         <div class="table-scroll">
           <table aria-label="Placeholder comparison chart">
             <thead>
-              <tr><th>Issue</th><th>Candidate A</th><th>Candidate B</th><th>Candidate C</th><th>Candidate D</th></tr>
+              <tr><th>Issue</th><th>Brunton</th><th>Finch</th><th>Gilpin</th><th>Haydt</th><th>Hewitt</th><th>Milner</th><th>Veri</th></tr>
             </thead>
             <tbody>
-              <tr><th>Taxes &amp; budget</th><td><div class="bar"><span style="width:70%"></span></div></td><td><div class="bar"><span style="width:45%"></span></div></td><td><div class="bar"><span style="width:85%"></span></div></td><td><div class="bar"><span style="width:55%"></span></div></td></tr>
-              <tr><th>Housing</th><td><div class="bar"><span style="width:50%"></span></div></td><td><div class="bar"><span style="width:80%"></span></div></td><td><div class="bar"><span style="width:40%"></span></div></td><td><div class="bar"><span style="width:65%"></span></div></td></tr>
-              <tr><th>Roads &amp; infrastructure</th><td><div class="bar"><span style="width:60%"></span></div></td><td><div class="bar"><span style="width:35%"></span></div></td><td><div class="bar"><span style="width:75%"></span></div></td><td><div class="bar"><span style="width:50%"></span></div></td></tr>
-              <tr><th>Agriculture &amp; economy</th><td><div class="bar"><span style="width:80%"></span></div></td><td><div class="bar"><span style="width:60%"></span></div></td><td><div class="bar"><span style="width:45%"></span></div></td><td><div class="bar"><span style="width:70%"></span></div></td></tr>
-              <tr><th>Community services</th><td><div class="bar"><span style="width:40%"></span></div></td><td><div class="bar"><span style="width:70%"></span></div></td><td><div class="bar"><span style="width:60%"></span></div></td><td><div class="bar"><span style="width:85%"></span></div></td></tr>
+              <tr><th>Taxes &amp; budget</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
+              <tr><th>Housing &amp; growth</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
+              <tr><th>Roads &amp; infrastructure</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
+              <tr><th>Agriculture &amp; rural</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
+              <tr><th>Transparency &amp; engagement</th><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td><td><div class="bar"></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -265,14 +281,77 @@
     <div class="wrap">
       <div class="section-head">
         <p class="kicker">Meet the candidates</p>
-        <h2>Short bios, coming soon.</h2>
-        <p>Each candidate will get a one-paragraph biography covering their background, experience and connection to the community.</p>
+        <h2>Seven candidates for mayor.</h2>
+        <p>Each candidate will get a one-paragraph biography covering their background, experience and connection to the community, followed by the AI analysis of their platform.</p>
       </div>
-      <div class="profile-grid" aria-hidden="true">
-        <div class="profile"><div class="avatar"><div class="shimmer"></div></div><div class="line title"></div><div class="line w90"></div><div class="line w75"></div><div class="line w50"></div><div class="tags"><span class="tag"></span><span class="tag"></span></div></div>
-        <div class="profile"><div class="avatar"><div class="shimmer"></div></div><div class="line title"></div><div class="line w90"></div><div class="line w75"></div><div class="line w50"></div><div class="tags"><span class="tag"></span><span class="tag"></span></div></div>
-        <div class="profile"><div class="avatar"><div class="shimmer"></div></div><div class="line title"></div><div class="line w90"></div><div class="line w75"></div><div class="line w50"></div><div class="tags"><span class="tag"></span><span class="tag"></span></div></div>
+      <div class="profile-grid">
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">DB</div>
+          <h3>Doug Brunton</h3>
+          <p class="role">Ward 5 (Simcoe) councillor; former head of public works for the Town of Simcoe.</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">DF</div>
+          <h3>David Finch</h3>
+          <p class="role">Former three-term Grimsby councillor; registered psychotherapist.</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">KG</div>
+          <h3>Ken Gilpin</h3>
+          <p class="role">Simcoe resident; heavy equipment technician.</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">NH</div>
+          <h3>Noel Haydt</h3>
+          <p class="role">Former Ward 1 councillor (2014&ndash;2018); business owner.</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">KH</div>
+          <h3>Ken Hewitt</h3>
+          <p class="role">Former Mayor of Haldimand County (2010&ndash;2022).</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">KM</div>
+          <h3>Keith Milner</h3>
+          <p class="role">Port Dover business owner; former RCMP staff sergeant.</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
+        <article class="profile">
+          <div class="avatar" aria-hidden="true">AV</div>
+          <h3>Adam Veri</h3>
+          <p class="role">Ward 6 (Port Dover) councillor and Deputy Mayor.</p>
+          <div class="line w90"></div><div class="line w75"></div><div class="line w50"></div>
+          <p class="soon">Bio &amp; analysis coming soon</p>
+        </article>
       </div>
+      <p class="fineprint">Candidates listed alphabetically by last name. Source: <a href="https://www.norfolkcounty.ca/vote/certified-candidates/" rel="noopener">Norfolk County certified candidates list</a>.</p>
+    </div>
+  </section>
+
+  <section id="dates">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Key dates</p>
+        <h2>Hear the candidates for yourself.</h2>
+        <p>Public events are the best way to see candidates answer questions directly. Check with organizers for any changes.</p>
+      </div>
+      <ol class="timeline">
+        <li class="past"><time>Tue, Sept 15</time><div><h3>Port Rowan All Candidates Night</h3><p>Port Rowan Community Centre · Long Point Country Chamber of Commerce</p></div></li>
+        <li><time>Wed, Sept 30</time><div><h3>Mayoral debate (agriculture &amp; rural focus)</h3><p>Delhi German Home, 443 James St. · Norfolk Federation of Agriculture · Mayoral debate begins 8 p.m.</p></div></li>
+        <li><time>Tue, Oct 13</time><div><h3>Mayoral candidate debate</h3><p>Port Dover Community Centre, 801 St. George St. · 7&ndash;9 p.m., doors 6:30 p.m.</p></div></li>
+        <li class="key"><time>Mon, Oct 26</time><div><h3>Election day</h3><p>See <a href="https://www.norfolkcounty.ca/vote/" rel="noopener">norfolkcounty.ca/vote</a> for how and where to vote.</p></div></li>
+      </ol>
     </div>
   </section>
 
@@ -297,7 +376,7 @@
           <h2>Are you a candidate, or spot something to fix?</h2>
           <p>Candidates are welcome to share their official platform materials, and anyone can send a correction. Accuracy matters more than anything here.</p>
         </div>
-        <a class="btn" href="mailto:yourname@example.com">Get in touch</a>
+        <a class="btn" href="mailto:dskura@gmail.com">Get in touch</a>
       </div>
     </div>
   </section>
@@ -306,7 +385,7 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 Norfolk Votes, Clearly · An independent voter information project</span>
-    <span>Contact: <a href="mailto:yourname@example.com">yourname@example.com</a></span>
+    <span>Contact: <a href="mailto:dskura@gmail.com">dskura@gmail.com</a></span>
   </div>
 </footer>
 
